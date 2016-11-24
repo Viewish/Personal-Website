@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body style="overflow: hidden;">
+	<!-- start image  start -->
+	<div id="loading">
+		<div id="spinner">
+			<img src="images/logo.png" alt="logo">
+		</div>
+	</div>
+	<!-- start image  end -->
+	
+	<!-- 进入主页面 -->
+    <div id="content_wrap" class="">
+    	
+    	<!-- Home btn start -->
+    	<div id="home_header">
+	        <div id="menu" class="menubtn">
+	            <span class="menu_li menu_li1"></span>
+	            <span class="menu_li menu_li2" style="opacity: 1;"></span>
+	            <span class="menu_li menu_li3"></span>
+	        </div>
+	    </div>
+    	<!-- Home btn end -->
+
+	    <!-- nav start -->
+        <div id="nav">
+            <div id="nav_front"></div>
+            <div class="nav_menu">
+                <a class="n_home active" href="#home"><span>HOME</span></a>
+                <a class="n_work" href="#works"><span>WORK</span></a>
+                <a class="n_about" href="#about"><span>ABOUT</span></a>
+                <a class="n_skill" href="#skill"><span>SKILL</span></a>
+         	    <a class="n_contact" href="#contact"><span>CONATCT</span></a>
+            </div>        
+            <div class="nav_bt">
+        		<img src="images/weixin_hover.png">
+        		<img class="nav_btweixin" src="images/address.png">
+        		<p class="nav_bt_wxText">扫一扫</p>
+            	<p><img src="images/contact_1.png"></p>
+            </div>
+        </div>
+ 	    <!-- nav start -->
+
+ 	    <!-- list start -->
+		<div class="main-pusher">       	       
+		    <iframe class="block current" src="tabs/home.html"></iframe>
+		    <iframe class="block" src="tabs/works.html"></iframe>
+		    <iframe class="block" src="tabs/about.html"></iframe>
+		    <iframe class="block" src="tabs/skill.html"></iframe>
+		    <iframe class="block" src="tabs/contact.html"></iframe>
+		</div>
+
+		<!-- list end --> 
+
+    </div>
+	<script>
+		var oLoad = document.getElementById('loading');
+		var oSpinner = document.getElementById('spinner');
+		var oMenu = document.getElementById('menu');
+		var aSpan = oMenu.getElementsByTagName('span');
+		var oNav = document.getElementById('nav');
+		var oNavMenu = getByClass('nav_menu')[0];
+		var aList = oNavMenu.getElementsByTagName('a');
+		var oMainPusher = getByClass('main-pusher')[0];
+		var aBlock = oMainPusher.getElementsByTagName('iframe');
+		/* 初始动画 */
+		setTimeout(function(){
+			oLoad.style.opacity = '0';
+			oLoad.style.display = 'none';
+			oLoad.transition = '0.7s';
+		},3500)
+		setTimeout(function(){
+			oSpinner.className = 'miss';
+		},3100)
+
+		/* 点击menu */
+		oMenu.onclick = function(){
+			if ( aSpan[1].style.opacity == '1' ) {
+				oMenu.style.transform = 'translateX(170px)';
+				oNav.style.transform = 'translateX(0)';
+				oNav.style.opacity = '1';
+				oMainPusher.style.transform = 'translateX(170px)';
+				aSpan[0].classList.add('menu_antop');
+				aSpan[1].style.opacity = '0';
+				aSpan[2].classList.add('menu_anbtm');
+			} else {
+				oMenu.style.transform = 'translateX(0)';
+				oNav.style.transform = 'translateX(170px)';
+				oMainPusher.style.transform = 'translateX(0)';
+				aSpan[0].classList.remove('menu_antop');
+				aSpan[1].style.opacity = '1';
+				aSpan[2].classList.remove('menu_anbtm');
+			}
+			
+		}
+
+		/* 点击换页 */
+		var currentIndex = 0;
+		var bReady = true;
+
+		for (var i = 0; i < aList.length; i++) {
+			(function(index){				
+				aList[index].onclick = function(){
+					if( !bReady ) return;
+					bReady = false;
+
+					var clickIndex = index;
+
+					changeSlide(currentIndex,clickIndex);
+
+					currentIndex = clickIndex;
+
+					for (var i = 0; i < aBlock.length; i++) {
+						aList[i].classList.remove('active');
+					};
+					this.classList.add('active');
+
+					if ( index == 1 ) {
+						setTimeout(function(){
+							oMenu.style.transform = 'translateX(0)';
+							oNav.style.transform = 'translateX(170px)';
+							oMainPusher.style.transform = 'translateX(0)';
+							aSpan[0].classList.remove('menu_antop');
+							aSpan[1].style.opacity = '1';
+							aSpan[2].classList.remove('menu_anbtm');
+						},500)
+					}					
+				}
+			})(i);
+		};
+
+		function changeSlide(nowaIndex,targetIndex){
+			var currentOne = aBlock[nowaIndex];
+			var nextOne = aBlock[targetIndex];
+			// alert(nowaIndex)
+
+			currentOne.classList.add('negative');
+			nextOne.classList.add('live');
+
+			nextOne.addEventListener("animationend",fnEnd,false)
+
+			function fnEnd(){
+				currentOne.classList.remove("current","negative");
+
+				nextOne.classList.add('current');
+				nextOne.classList.remove('live');
+
+				bReady = true;
+
+				nextOne.removeEventListener("animationend",fnEnd,false);
+			}
+		}
+
+		function getByClass(sClass){
+            if(document.getElementsByClassName){
+                return document.getElementsByClassName(sClass);
+            }
+            var aEle=document.getElementsByTagName('*');
+            var re=new RegExp('\\b'+sClass+'\\b');
+            var result=[];
+            for(var i=0;i<aEle.length;i++){
+                if(re.test(aEle[i].className)){
+                    result.push(aEle[i]);
+                }
+            }
+            return result;
+        }
+	</script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+
+
+
+/*page显示的页码加的这个*/
+.content_current { z-index: 1; visibility: visible; }
+
+body{
+	margin: 0;
+}
+/*总体*/
+.screen { 
+	position: absolute; 
+	/*position: relative; */
+	top: 0px; 
+	left: 0px; 
+	/*visibility: hidden; */
+	overflow: hidden; 
+	width: 100%; 
+	min-height: 100%; 
+	background: rgb(255, 255, 255) none repeat scroll 0% 0%; 
+	transform: translate3d(0px, 0px, 0px); 
+	backface-visibility: hidden; 
+	transform-style: preserve-3d; 
+}
+.main { 
+	position: relative; 
+	margin-left: 0px; 
+	padding-left: 0px; 
+	width: 100%; 
+	height: 100%; 
+}
+
+/*head部分*/
+.head { 
+	padding-bottom: 20px; 
+	height: 30px; 
+	min-width: 890px; 
+}
+.copyright { 
+	position: relative; 
+	top: 16px; 
+	right: 14px; 
+	z-index: 2; 
+	float: right; 
+	overflow: hidden; 
+	width: 470px; 
+	height: 32px; 
+}
+
+
+
+/*下面主体内容部分*/
+
+	#workbox { 
+		position: relative; 
+		/*padding-top: 68px;*/ 
+		width: 100%; 
+		height: 100%; 
+	}
+	.work-size { width: 25%; }
+	@media only screen and (max-width: 768px) {
+	  #workbox .workshow, .work-size { width: 33.3%; }
+	}
+	@media only screen and (min-width: 769px) {
+	  #workbox .workshow, .work-size { width: 25%; }
+	}
+	@media only screen and (min-width: 1920px) {
+	  #workbox .workshow, .work-size { width: 20%; }
+	}
+	
+	/*清浮动*/
+	.clearfloat::after { 
+		clear: both; 
+		display: block; 
+		visibility: hidden; 
+		height: 0px; 
+		content: ""; 
+	}
+
+
+	#workbox .workshow { 
+		float: left; 
+		display: block; 
+		width: 25%; 
+		cursor: pointer; 
+		position: relative;
+	}
+	#workbox .workshow::before { 
+		box-sizing: border-box; 
+		position: absolute; 
+		background: transparent url('../images/view.png') no-repeat scroll center center; 
+		content: ""; 
+		right: 30px; 
+		left: 30px; 
+		top: 30px; 
+		bottom: 150px; 
+		transform: scale(1.4); 
+		opacity: 0; 
+		transition: opacity 0.35s ease 0s, transform 0.35s ease 0s; 
+		z-index: 4; 
+	}
+	#workbox .workshow:hover::before { 
+		opacity: 1; 
+		transform: scale(1); 
+	}
+	.workshow a { 
+		display: block; 
+		background: rgb(255, 255, 255); 
+		text-decoration: none; 
+	}
+
+	/*上  图片部分*/
+	.workimg { 
+		display: block; 
+		margin: 0px; 
+		width: 100%; 
+		transition: transform 0.3s linear 0s; 
+		transform: scale(1); 
+	}
+	.work-imgbox { overflow: hidden; }
+	
+	#workbox .workshow .work-imgbox::before { 
+		content: ""; 
+		width: 100%; 
+		height: 100%; 
+		position: absolute; 
+		display: block; 
+		z-index: 3; 
+		background: rgba(0, 0, 0, 0.8); 
+		opacity: 0; 
+		transition: opacity 0.35s ease 0s; 
+	}
+	#workbox .workshow:hover .work-imgbox::before {
+		opacity: 1; 
+	}
+	#workbox .workshow:hover .workimg { 
+		transform: scale(1.1); 
+	}
+	/*下  文字、标题 部分*/
+	.workshow p { 
+		font-size: 12px; 
+		margin:0;
+	}
+	.workinfo { 
+		padding: 20px; 
+		height: 80px; 
+		background: rgb(245, 246, 245) url('../images/work_bg.gif') no-repeat scroll right center; 
+		color: rgb(102, 102, 102); 
+		transition: background-color 0.5s ease 0s, color 0.5s ease 0s; 
+		position: relative; 
+		z-index: 3; 
+	}
+	.workeng { 
+		padding-bottom: 8px; 
+		text-transform: uppercase; 
+		font-size: 10px; 
+	}
+	.workinfo h2 { 
+		padding-bottom: 16px; 
+		margin: 0;	
+		text-transform: uppercase; 
+		font-weight: 400; 
+		font-size: 18px; 
+		font-family: Arial,Helvetica,sans-serif; 
+	}
+
+	#workbox .workshow:hover .workinfo { background-image: none; background-color: rgb(208, 65, 109); color: rgb(255, 255, 255); }
+
+
+	/* 内容的容器 */
+	.bg{
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.1);
+		position: absolute;
+		z-index: 9;
+		display: none;
+	}
+
+	.page{
+		width: 100%;
+		height: 100%;
+	}
+	#contentBox{
+		width: 1000px;
+		height: 600px;
+		border: 1px solid #999;
+		position: fixed;
+		top: 20px;
+		left: 100%;
+		z-index: 10;
+		display: block;
+		transition: 0.7s;
+	}
+	#left{
+		width: 800px;
+		height: 100%;
+		float: left;
+		background-color: #fff;
+	}
+	#right{
+		width: 200px;
+		height: 100%;
+		box-sizing: border-box;
+		float: right;
+		padding: 20px 10px;
+		border-left: 1px solid #999;
+		background-color: #fff;
+		position: relative;
+	}
+
+	/* 左边的demo部分 */
+	#left iframe{
+		width: 100%;
+		height: 100%;
+	}
+
+	/* 右边的介绍部分 */
+		.work_close{
+			position:absolute;
+			top:50px;
+			right:25px;
+			cursor:pointer;
+			z-index:99
+		}
+		.work_closeB,.work_closeT{
+			margin:6px auto;
+			width:100%;
+			height:2px;
+			background:#222;
+			-webkit-transform-origin:0 0;
+			-moz-transform-origin:0 0;
+			transform-origin:0 0;
+			-ms-transform-origin:0 0;
+		}
+		.work_closeT{
+			-webkit-transform:rotate(45deg);
+			-moz-transform:rotate(45deg);
+			transform:rotate(45deg);
+			-webkit-animation: work_closeT 0.4s ease 0.2s both;
+			-moz-animation:work_closeT 0.4s ease 0.2s both;
+			animation:work_closeT 0.4s ease 0.2s both;
+		}
+		.work_closeB{
+			-webkit-transform:rotate(-45deg);
+			-moz-transform:rotate(-45deg);
+			transform:rotate(-45deg);
+			-webkit-animation: work_closeB 0.4s ease 0.2s both;
+			-moz-animation:work_closeB 0.4s ease 0.2s both;
+			animation:work_closeB 0.4s ease 0.2s both;
+		}
+		.work_closeC{
+			color:#222;
+			text-align:center;
+			font-size:18px;
+			line-height:19px;
+			opacity:0;
+			transition: 0.7s;
+		}
+		
+		.work_close:hover .work_closeT{
+			-webkit-animation: work_closeTout 0.4s ease 0.2s both;
+			-moz-animation:work_closeTout 0.4s ease 0.2s both;
+			animation:work_closeTout 0.4s ease 0.2s both;
+		}
+		.work_close:hover .work_closeB{
+			-webkit-animation: work_closeBout 0.4s ease 0.2s both;
+			-moz-animation:work_closeBout 0.4s ease 0.2s both;
+			animation:work_closeBout 0.4s ease 0.2s both;
+		}
+		.work_close:hover .work_closeC{
+			opacity: 1;
+		}
+
+		@-webkit-keyframes work_closeT{0%{-webkit-transform:rotate(0)}
+		100%{-webkit-transform:rotate(45deg)}
+		}
+		@-moz-keyframes work_closeT{0%{-moz-transform:rotate(0)}
+		100%{-moz-transform:rotate(45deg)}
+		}
+		@keyframes work_closeT{0%{transform:rotate(0)}
+		100%{transform:rotate(45deg)}
+		}
+		@-webkit-keyframes work_closeTout{0%{-webkit-transform:rotate(45deg)}
+		100%{-webkit-transform:rotate(0)}
+		}
+		@-moz-keyframes work_closeTout{0%{-moz-transform:rotate(45deg)}
+		100%{-moz-transform:rotate(0)}
+		}
+		@keyframes work_closeTout{0%{transform:rotate(45deg)}
+		100%{transform:rotate(0)}
+		}
+		@-webkit-keyframes work_closeB{0%{-webkit-transform:rotate(0)}
+		100%{-webkit-transform:rotate(-45deg)}
+		}
+		@-moz-keyframes work_closeB{0%{-moz-transform:rotate(0)}
+		100%{-moz-transform:rotate(-45deg)}
+		}
+		@keyframes work_closeB{0%{transform:rotate(0)}
+		100%{transform:rotate(-45deg)}
+		}
+		@-webkit-keyframes work_closeBout{0%{-webkit-transform:rotate(-45deg)}
+		100%{-webkit-transform:rotate(0)}
+		}
+		@-moz-keyframes work_closeBout{0%{-moz-transform:rotate(-45deg)}
+		100%{-moz-transform:rotate(0)}
+		}
+		@keyframes work_closeBout{0%{transform:rotate(-45deg)}
+		100%{transform:rotate(0)}
+		}
+	
+	/* 标题部分 */
+		.work_title{
+			text-align:right;
+			margin: 150px 0 40px;
+		}
+		.work_title h1{
+			color:#a1a1a1;
+			text-align:right;
+			font-weight:400;
+			font-size:28px;
+			font-family:"微软雅黑";
+		}
+		.work_title h1 span{
+			font-size: 16px;
+		}
+		.work_title h2{
+			display:inline-block;
+			border-bottom:3px solid #d0416d;
+			color:#a1a1a1;
+			text-align:right;
+			font-weight:400;
+			font-size:16px;
+			font-family:Arial;
+		}
+		.work_detail{
+			margin-top:10px;
+			color:#a1a1a1;
+			text-align:right;
+			font-size:13px;
+			line-height: 20px;
+		}
+		.work_technology h3{
+			color:#666;
+			text-align:right;
+			font-weight:700;
+			font-size:12px;
+		}

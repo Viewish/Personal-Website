@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+	*{ margin:0; padding:0; list-style:none;}
+	body > img{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 0;
+	}
+	input{
+		display: none;
+	}
+	#box{ width:100%; text-align:center; position:absolute; bottom:100px;}
+	#box img{ width:75px;}
+</style>
+<script>
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aImg=oBox.children;
+		var aIpt=document.getElementsByTagName('input');
+		
+		document.onmousemove=function(ev){
+			var oEvent=ev||event;
+			
+			for(var i=0;i<aImg.length;i++){
+				var b=aImg[i].offsetLeft+aImg[i].offsetWidth/2-oEvent.clientX;
+				var a=aImg[i].offsetTop+aImg[i].offsetHeight/2-oEvent.clientY+oBox.offsetTop;
+				
+				var c=Math.sqrt(a*a+b*b);
+				var scale=1-c/500;
+				
+				scale<0.5&&(scale=0.5);
+				
+				aIpt[i].value=scale;
+				aImg[i].style.width=150*scale+'px';
+				
+			};
+		};
+		
+		
+	};
+</script>
+</head>	
+
+<body>
+<img src="images/bg.png">
+<input type="text"/>
+<input type="text"/>
+<input type="text"/>
+<input type="text"/>
+<input type="text"/>
+<input type="text"/>
+<input type="text"/>
+<div id="box">
+	<img src="images/0.jpg"/>
+	<img src="images/1.jpg"/>
+	<img src="images/2.jpg"/>
+	<img src="images/3.jpg"/>
+	<img src="images/4.jpg"/>
+	<img src="images/5.jpg"/>
+	<img src="images/6.jpg"/>
+</div>
+</body>
+</html>

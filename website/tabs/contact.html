@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/page_contact.css">
+</head>
+<body>
+<div class="screen">
+    <div class="main">
+        <div id="show_wrap">
+            <div id="showmask">
+                <div class="maskbox">
+                    <img src="images/address.png">
+                </div>
+            </div>
+        </div>
+        <!-- 右上角图标 -->
+        <div class="copyright">
+            <img src="images/copyright.png">
+            <img src="images/w.png">
+        </div>
+        <!-- 左边标题 -->
+        <div class="title">
+            <img src="images/title_contact.png" alt="about me">
+            <span class="bline"></span>
+        </div>
+        <!-- 内容主体部分 content -->
+        <div class="spaceBox">
+            <div class="content_box">
+                <div class="box_container">
+                    <div class="w890">
+                        <div class="w655">
+                            <img src="images/contact_top.png">
+                            <a id="contact_textbtn" href="#" class="chinese">
+                                <img src="images/change_english.png">
+                            </a>
+                            <div id="china_txteng">
+                                <div id="english_text" style="opacity: 0">
+                                    <p>Please Contact Me</p>
+                                    <p>Mobile:189-303-17680</p>
+                                    <p>QQ:2319532231</p>
+                                    <p>A few miles around. Long Bridge Street.<a href="http://map.baidu.com/" target="_top" class="mapicon" title="查看位置"></a><br>Xuhui District. ShangHai. China.</p>
+                                    <p>e-mail:viewish@163.com</p>                                   
+                                </div>
+                                <div id="china_text" style="opacity: 1">
+                                    <p>联系方式</p>
+                                    <p>手机:189-303-17680</p>
+                                    <p>QQ:2319532231</p>
+                                    <p>中国 上海 徐汇区长桥街道方圆几里 <a href="http://map.baidu.com/" target="_top" class="mapicon" title="查看位置"></a></p>
+                                    <p>邮箱:viewish@163.com</p>
+                                </div>
+                                <p>
+                                    <img src="images/address.png" alt="扫描二维码">
+                                </p>
+                                <div id="showmessage" class="btnmove"><a href="#" class="mess_box">Leave a message</a>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>                       
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+</div>
+    <script>
+        var oTextbtn = document.getElementById('contact_textbtn');
+        var oImage = oTextbtn.getElementsByTagName('img')[0];
+        var oTextChina = document.getElementById('china_text');
+        var oTextEnglish = document.getElementById('english_text');
+        var oShowMessage = document.getElementById('showmessage');
+        var oMessBox = oShowMessage.getElementsByTagName('a')[0];
+        var oShowWrap = document.getElementById('show_wrap');
+        var oShowMask = document.getElementById('showmask');
+
+
+        oTextbtn.onclick = function(){
+            if ( oTextEnglish.style.opacity == "0" ) {
+                oTextEnglish.style.opacity = "1";
+                oTextChina.style.opacity = "0";
+                oImage.src = "images/change_chinese.png";
+                oTextEnglish.style.left = '185px';
+                oTextChina.style.left = '-200px';
+            } else {
+                oTextChina.style.opacity = "1";
+                oTextEnglish.style.opacity = "0";
+                oImage.src = "images/change_english.png";
+                oTextEnglish.style.left = '400px';
+                oTextChina.style.left = '0px';
+            }
+        }
+
+        oShowMessage.onmouseenter = function(){
+            oMessBox.style.top = '-31px';
+        }
+        oShowMessage.onmouseleave = function(){
+            oMessBox.style.top = '0';
+        }
+        oShowMessage.onclick = function(){
+            oShowWrap.style.display = "block";
+            setTimeout(function(){
+                oShowWrap.style.display = "none";
+            },3000)
+        }
+        
+    </script>
+</body>
+</html>

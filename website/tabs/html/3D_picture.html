@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+			background:url(images/bg1.jpg);
+		}
+
+		ul,li{
+			list-style: none;
+			margin: 0;
+			padding:0;
+		}
+
+		.card{
+			width: 133px;
+			height: 200px;
+			position: absolute;
+			left: 0;
+			top: 0;
+			border-radius: 3px;
+			box-shadow: 0 0 14px white;
+		}
+
+		.container{
+			width: 200px;
+			height: 400px;
+			margin: 0 auto;
+			perspective: 1200px;
+			position: relative;
+			transform-style: preserve-3d;
+		}
+
+		.wrapper{
+			width: 133px;
+			height: 200px;
+			position: absolute;
+			top: 40%;
+			transform-style: preserve-3d;
+			transform: rotateX(-10deg);
+		}
+
+		.shadow{
+			width: 133px;
+			height: 200px;
+			transform: scale(1,-1);
+			position: absolute;
+			top: 220px;
+			left: 0;
+			opacity: 0.5;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<ul class="wrapper">
+		</ul>
+	</div>
+
+	<script>
+		var oContainer = document.querySelector('.container')
+		var oWrapper = document.querySelector('.wrapper')
+
+		var count = 10;
+
+		var translateX = 0;
+		var translateY = 25;
+
+		var oldX = 0;
+		var oldY = 0;
+
+		var speedX = 0;
+		var speedY = 0;
+
+		var timer;
+
+		for( var index = 0; index < count;index++ ){
+			var oCard = document.createElement('li');
+				oCard.classList.add('card');
+
+				oCard.style.transition = `0.7s ${(count-index-1)*0.2}s`
+				oCard.style.backgroundImage = `url(images/${index+1}.png)`;
+
+			var oShadow = document.createElement('div');
+				oShadow.classList.add('shadow');
+ 
+				oShadow.style.backgroundImage = `linear-gradient(rgba(0,0,0,1) 50%,rgba(0,0,0,0)),url(images/${index+1}.png)`;
+
+			oCard.appendChild(oShadow);
+
+			(function(index,oCard){
+				setTimeout(function(){
+					oCard.style.transform = `rotateY(${360/count*index}deg) translateZ(300px)`
+				})
+			})(index,oCard)
+
+			oWrapper.appendChild(oCard);
+		}
+
+		var aCards = document.querySelectorAll('li');
+
+		aCards[0].addEventListener('transitionend',function(){
+			
+			aCards.forEach(function(oCard){
+				oCard.style.transition = '0.7s';
+			})
+
+			setPosition();
+		},false)
+
+		document.onmousedown = function(ev){
+			ev.preventDefault();
+
+			clearInterval(timer);
+
+			clearTransition();
+
+			var disX = ev.clientX - translateX;
+			var disY = ev.clientY - translateY;
+
+			document.onmousemove = function(ev){
+				var deltaX = ev.clientX - disX;
+				var deltaY = ev.clientY - disY;
+
+				translateX = deltaX;
+				translateY = deltaY;
+
+				setPosition();
+
+				speedX = deltaX - oldX;
+				speedY = deltaY - oldY;
+
+				oldX = deltaX;
+				oldY = deltaY;
+			}
+
+			document.onmouseup = function(){
+				document.onmousemove = null;
+				document.onmouseup = null;
+
+				timer = setInterval(function(){
+
+					speedX *= 0.9;
+					speedY *= 0.9;
+
+					translateX += speedX;
+					translateY += speedY;
+
+					setPosition();
+
+					if( Math.abs(speedX) < 0.0007 && Math.abs(speedY) < 0.0007 ){
+						clearInterval(timer)
+					}
+				},16)
+			}
+		}
+
+		function setPosition(){
+			aCards.forEach(function(oCard,index){
+				oCard.style.opacity = Math.abs(Math.abs(360/count*index+translateX*0.4)%360-180)/180 + 0.3;
+
+				oCard.style.transform = `rotateY(${360/count*index+translateX*0.4}deg) translateZ(300px)`
+			})
+
+			oWrapper.style.transform = `rotateX(${-translateY*0.4}deg)`
+		}
+
+		function clearTransition(){
+			aCards.forEach(function(oCard){
+				oCard.style.transition = '';
+			})
+		}
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

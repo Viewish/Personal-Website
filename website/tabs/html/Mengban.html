@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>		
+		#box{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background: url(images/mb.jpg);
+			background-size: contain;
+			background-repeat: no-repeat;
+			-webkit-mask:-webkit-radial-gradient(10px 10px,circle,green 5%,rgba(0,0,0,0) 10%,rgba(0,0,0,0));
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script>
+		var oBox=document.querySelector('#box');
+
+		oBox.onmouseenter = function(){
+			document.onmousemove = function(ev){
+				var clientX = ev.clientX;
+				var clientY = ev.clientY;
+
+				oBox.style.WebkitMask = `-webkit-radial-gradient(${clientX}px ${clientY}px,circle,green 5%,rgba(0,0,0,0) 10%,rgba(0,0,0,0))`
+			}
+			document.onmouseleave=function(){
+				document.onmousemove = null;
+				document.onmouseleave =null;
+			}
+		}
+
+	</script>
+</body>
+</html>

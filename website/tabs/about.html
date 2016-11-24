@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/page_about.css">
+</head>
+<body>
+<div class="screen">
+    <div class="main">
+        <!-- 右上角图标 -->
+        <div class="copyright">
+            <img src="images/copyright.png">
+            <img src="images/w.png">
+        </div>
+        <!-- 内容主体部分 content -->
+        <div class="spaceBox">
+            <div class="content_box" id="content_box">
+                <div class="mid content"></div>
+                <div class="lt content">
+                    <div class="front">NAME</div>
+                    <div class="back">
+                        <h3>袁唯</h3>
+                        <p>一个年轻、活力<br>90后大男孩</p>
+                    </div>
+                </div>
+                <div class="lb content">
+                    <div class="front">Experience</div>
+                    <div class="back">
+                        <h3>一年经验</h3>
+                        <p>不断地给自己充电<br>提高自己的工作能力</p>
+                    </div>
+                </div>
+                <div class="rt content">
+                    <div class="front">Character</div>
+                    <div class="back">
+                        <h3>开朗、善交谈</h3>
+                        <p>很好的与人交流，<br>与团队的成员合作</p>
+                    </div>
+                </div>   
+                <div class="rb content">
+                    <div class="front">Hobbies</div>
+                    <div class="back">
+                        <h3>体育运动</h3>
+                        <p>篮球、跑步、爬山、羽毛球、读书...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+    <script>
+        var oContentBox = document.getElementById('content_box');
+        var aContent = getByClass('content');
+        var aFront = getByClass('front');
+        var aBack = getByClass('back');
+
+        oContentBox.onclick = function(){
+            aContent[0].style.backgroundImage = "url(images/about_me.png)";
+            oContentBox.style.width = '800px';
+        }
+
+        for (var i = 1; i < aContent.length; i++) {
+            (function(index){
+                aContent[index].onclick = function(){
+                    this.style.transform = 'rotateX(180deg)';
+                    aFront[index-1].style.opacity = '0';
+                    aBack[index-1].style.opacity = '1';
+                }
+            })(i)
+        }
+
+        function getByClass(sClass){
+            if(document.getElementsByClassName){
+                return document.getElementsByClassName(sClass);
+            }
+            var aEle=document.getElementsByTagName('*');
+            var re=new RegExp('\\b'+sClass+'\\b');
+            var result=[];
+            for(var i=0;i<aEle.length;i++){
+                if(re.test(aEle[i].className)){
+                    result.push(aEle[i]);
+                }
+            }
+            return result;
+        }
+
+    </script>
+</body>
+</html>

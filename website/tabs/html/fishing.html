@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			background-color: #fff;
+			margin: 0;
+		}
+
+		canvas{
+			background-image: url(img/game_bg_2_hd.jpg);
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="800" height="600"></canvas>
+	<script src="js/common.js"></script>
+	<script src="js/resource.js"></script>
+	<script src="js/fish.js"></script>
+	<script src="js/cannon.js"></script>
+	<script src="js/bullet.js"></script>
+	<script src="js/dieFish.js"></script>
+	<script src="js/net.js"></script>
+	<script src="js/coin.js"></script>
+	<script>
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d');
+
+		var images = {};
+
+		var distance = 70;
+		var chance = 0.04;
+
+		var fishArray = [];
+		var dieFishArray = [];
+		var bulletArray = [];
+		var netArray = [];
+		var coinArray = [];
+		var moneyArray = [];
+
+		var money = 0;
+
+		var cannonKind = 0;
+
+		var MONEY_TEXT_SIZE = [
+			{x:0,y:0,w:36,h:49},
+			{x:36,y:0,w:36,h:49},
+			{x:72,y:0,w:36,h:49},
+			{x:108,y:0,w:36,h:49},
+			{x:144,y:0,w:36,h:49},
+			{x:180,y:0,w:36,h:49},
+			{x:216,y:0,w:36,h:49},
+			{x:252,y:0,w:36,h:49},
+			{x:288,y:0,w:36,h:49},
+			{x:324,y:0,w:36,h:49},
+			{x:360,y:0,w:36,h:49},
+		]
+
+		class Money{
+			constructor(number,index){
+				this.number = number;
+				this.index = index;
+			}
+
+			draw(){
+				var {
+					x,y,w,h
+				} = MONEY_TEXT_SIZE[this.number];
+
+				ctx.save()
+				ctx.translate(22+((this.index+1)*2-1)*11,587);
+				ctx.drawImage(images.coinText,
+					x,y,w,h,
+					-11,-15,18,30
+				)
+
+				ctx.restore();
+			}
+		}
+
+		loadResource(resource,function(){
+			
+			var cannon = new Cannon(cannonKind+1);
+
+			setMoney(0);
+
+			setInterval(function(){
+				clear();
+
+				// 出鱼
+				if( random() < chance ){
+
+					var fromLeft = random() > 0.5;
+					var fish = new Fish(rnd(1,6));
+						fish.y = rnd(100,500);
+
+					if( fromLeft ){
+						fish.x = - distance;
+						fish.rotate = rnd(-45,45)
+					} else {
+						fish.x = canvas.width + distance;
+						fish.rotate = rnd(135,225);
+					}
+
+					fishArray.push(fish);
+				}
+
+				// 碰撞检测
+				fishArray.forEach(function(fish,fishIndex){
+					bulletArray.forEach(function(bullet,bulletIndex){
+
+						// 打到
+						if( fish.isIn(bullet.x,bullet.y) ){
+							fishArray.splice(fishIndex,1);
+							bulletArray.splice(bulletIndex,1)
+
+							// 加死鱼
+							var dieFish = new DieFish(fish.kind);
+								dieFish.x = fish.x;
+								dieFish.y = fish.y;
+								dieFish.rotate = fish.rotate;
+
+							dieFishArray.push(dieFish);
+
+							// 加网
+							var net = new Net(cannon.kind);
+								net.x = fish.x;
+								net.y = fish.y;
+
+							netArray.push(net);
+
+							setTimeout(function(){
+								dieFishArray.shift();
+								netArray.shift();
+
+								// 加钱
+								var coin = new Coin(fish.kind);
+									coin.x = fish.x;
+									coin.y = fish.y;
+
+								setTimeout(function(){
+									money += fish.kind > 3 ? 10 : 1;
+
+									setMoney(money);
+								},1000)
+
+								coinArray.push(coin);
+							},1000)
+						}
+
+					})
+				})
+
+				// 画死鱼
+				dieFishArray.forEach(function(dieFish){
+					dieFish.draw();
+				})
+
+				// 画网
+				netArray.forEach(function(net){
+					net.draw();
+				})
+
+				// 画钱
+				coinArray.forEach(function(coin){
+					coin.draw();
+				})
+
+				// 画鱼
+				fishArray.forEach(function(fish,index){
+					fish.draw();
+
+					// 判断鱼是否出界
+					if(
+						fish.x < -distance || 
+						fish.x > canvas.width + distance || 
+						fish.y < -distance || 
+						fish.y > canvas.height + distance
+					){
+						fishArray.splice(index,1)
+					}
+				})
+
+				// 画炮台
+				ctx.drawImage(images.bottom,
+					0,0,765,70,
+					0,532,765,70
+				)
+
+				moneyArray.forEach(function(money){
+					money.draw();
+				})
+
+				// 画子弹
+				bulletArray.forEach(function(bullet,index){
+					bullet.draw();
+
+					// 子弹出界
+					if(
+						bullet.x < -distance || 
+						bullet.x > canvas.width + distance || 
+						bullet.y < -distance || 
+						bullet.y > canvas.height + distance
+					){
+						bulletArray.splice(index,1)
+					}
+				})
+
+				// 画炮
+				cannon.draw();
+			},16)
+
+			canvas.onclick = function(ev){
+				var {
+					pageX,
+					pageY
+				} = ev;
+
+				cannon.rotate = -a2d(atan2(cannon.x - pageX,cannon.y - pageY))
+
+				cannon.emit();
+
+				var bullet = new Bullet(cannon.kind);
+					bullet.rotate = cannon.rotate;
+
+				bulletArray.push(bullet);
+			}
+
+			window.onkeyup = function({ keyCode }){
+				var rotate = cannon.rotate;
+
+				if( keyCode == 38 ){
+					// 上
+
+					cannonKind++;
+
+					if( cannonKind == 7 ){
+						cannonKind = 0;
+					}
+
+					cannon = new Cannon(cannonKind+1);
+					cannon.rotate = rotate;
+
+				} else if( keyCode == 40 ){
+					// 下
+
+					cannonKind--;
+
+					if( cannonKind == -1 ){
+						cannonKind = 6;
+					}
+					
+					cannon = new Cannon(cannonKind+1);
+					cannon.rotate = rotate;
+				}
+
+			}
+
+			function setMoney(number){
+				var str = addToSix(number);
+				moneyArray = [];
+
+				str.split('').forEach(function(number,index){
+					var moneyText = new Money(number,index);
+					moneyArray.push(moneyText);
+				})
+			}
+
+			function addToSix(number){
+				var numberStr = "" + number;
+				var length = numberStr.length;
+
+				if( length >= 6 ){
+					return numberStr;
+				} else {
+					var zeroCount = 6 - length;
+
+					for( var i = 0;i<zeroCount;i++ ){
+						numberStr = '0' + numberStr
+					}
+				}
+
+				return numberStr;
+			}
+		})
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

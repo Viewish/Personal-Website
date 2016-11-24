@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/page_home.css">
+</head>
+<body>
+<div class="screen">
+    <div class="main">
+        <!-- 头部 head -->
+        <div class="head">
+            <!-- 右上角图标 -->
+            <div class="copyright">
+                <img src="images/copyright.png">
+                <img src="images/w.png">
+            </div>
+            <!-- 主页轮播图 -->
+            <div id="home-slider">
+                <div class="hd">
+                    <ul id="ul1">
+                        <li class="on"></li>
+                        <li class=""></li>
+                        <li class=""></li>
+                    </ul>
+                </div>
+                <div class="bd">
+                    <ul id="ul2">
+                        <li class="active"><a href="#"><img src="images/a1.jpg"></a></li>
+                        <li ><a href="#"><img src="images/a2.jpg"></a></li>
+                        <li><a href="#"><img src="images/a3.jpg"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 向下箭头 -->
+            <div id="work_more">
+                <div class="arrow">
+                    <div class="arrow_left arrow_animate"></div>
+                    <div class="arrow_right arrow_animate"></div>
+                </div>
+            </div>
+
+        </div>
+        
+        
+    </div>
+</div>
+    <script>
+        var oUl = document.getElementById('ul1');
+        var oUl2 = document.getElementById('ul2');
+        var aLi = oUl.getElementsByTagName('li');
+        var aLi2 = oUl2.getElementsByTagName('li');
+        var oWorkMore = document.getElementById('work_more');
+        var oArrow = oWorkMore.children[0];
+        var oAleft = oArrow.children[0];
+        var oAright= oArrow.children[1];
+
+        var timer = null;
+        var n = 0;
+        /* 轮播图 */
+        function show(n){
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].className = '';
+                aLi2[i].className = '';
+            }
+            aLi[n].className = 'on';
+            aLi2[n].className = 'active';
+        }
+
+
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].index = i;
+            aLi[i].onmouseenter = function(){
+                n = this.index;
+                show(this.index);
+            }
+        }
+
+        
+        function next(){
+            n++;
+            if ( n >= 3 ) n = 0;
+            show(n);
+        }
+
+        timer = setInterval(next,1500);
+        oUl.onmouseover=function(){
+            clearInterval(timer);   
+        };
+        oUl.onmouseout=function(){
+            timer=setInterval(next,1500);   
+        };
+        
+        /* 向下箭头 */
+        oWorkMore.onmouseenter = function(){
+            oAleft.classList.add('arrow_Aleft');
+            oAright.classList.add('arrow_Aright');
+        }
+
+        oWorkMore.onmouseleave = function(){
+            oAleft.classList.remove('arrow_Aleft');
+            oAright.classList.remove('arrow_Aright');
+        }
+
+        /*oWorkMore.onclick = function(){
+
+        }*/
+    </script>
+</body>
+</html>

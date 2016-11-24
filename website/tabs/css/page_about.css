@@ -1,0 +1,155 @@
+
+/*page显示的页码加的这个*/
+	.content_current { z-index: 1; visibility: visible; }
+
+
+/*总体*/
+	.screen { 
+		position: absolute; 
+		top: 0px; 
+		left: 0px; 
+		/*visibility: hidden; */
+		overflow: hidden; 
+		width: 100%; 
+		min-height: 100%; 
+		background: rgb(255,255,255) none repeat scroll 0% 0%; 
+		transform: translate3d(0px, 0px, 0px); 
+		backface-visibility: hidden; 
+		transform-style: preserve-3d; 
+		background-image: url(../images/bg-about.png);
+	}
+	.main { 
+		position: relative; 
+		margin-left: 0px; 
+		padding-left: 0px; 
+		width: 100%; 
+		height: 100%; 
+	}
+
+/*head部分*/
+	.head { 
+		padding-bottom: 20px; 
+		height: 30px; 
+		min-width: 890px; 
+	}
+	.copyright { 
+		position: relative; 
+		top: 16px; 
+		right: 14px; 
+		z-index: 2; 
+		float: right; 
+		overflow: hidden; 
+		width: 470px; 
+		height: 32px; 
+	}
+
+
+/*下面主体内容部分*/
+	.spaceBox { 
+		padding-top: 150px; 
+	}
+	.content_box { 
+		position: relative; 
+		overflow: hidden; 
+		height: 420px; 
+		max-width: 100%; 
+		outline: 0px none; 
+		direction: ltr; 
+		margin: 0 auto;
+		width: 180px; 
+		transition: 2s ease-out;
+		perspective: 800px;
+		transform-style: preserve-3d;
+	}
+	.content_box .mid{
+		width: 400px;
+		height: 300px;
+		margin-left: -200px;
+		margin-top: -180px;
+		border: none;
+		background-image: url(../images/click_me.png);
+		transition: 0.7s;
+		cursor: pointer;
+	}
+	.content_box > div{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 150px;
+		height: 100px;
+		border: 1px solid #2d2d2d;
+		padding: 20px;
+		border-radius: 20px;
+		transition: 0.7s;
+		cursor: pointer;
+	}
+	.content_box .lt{
+		margin-left: -385px;
+		margin-top: -200px;
+	}
+	.content_box .lb{
+		margin-left: -385px;
+		margin-top: 10px;
+	}
+	.content_box .rt{
+		margin-left: 190px;
+		margin-top: -200px;
+	}
+	.content_box .rb{
+		margin-left: 190px;
+		margin-top: 10px;
+	}
+	
+	.content_box .front{
+		width: 100%;
+		height: 100%;
+		border-radius: 20px;
+		text-align: center;
+		line-height: 140px;
+		font-size: 24px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #fff;
+		transition-delay: 0.3s;
+	}
+	.content_box .back{
+		width: 100%;
+		height: 100%;
+		border-radius: 20px;
+		text-align: center;
+		font-size: 24px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform: rotateX(180deg);
+		background-color: #fff;
+		opacity: 0;
+		transition-delay: 0.3s;
+	}
+
+	.content_box h3{
+		margin: 25px auto 15px;
+		font-size: 26px;
+	}
+	.content_box p{
+		margin: 0 auto;
+		font-size: 20px;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	iframe{width: 100%;border: none;height: 691px;z-index: 100}

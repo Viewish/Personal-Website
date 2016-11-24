@@ -1,0 +1,194 @@
+
+/*page显示的页码加的这个*/
+	.content_current { z-index: 1; visibility: visible; }
+
+
+/*总体*/
+	.screen { 
+		position: absolute; 
+		top: 0px; 
+		left: 0px; 
+		/*visibility: hidden; */
+		overflow: hidden; 
+		width: 100%; 
+		min-height: 100%; 
+		background: rgb(255, 255, 255) none repeat scroll 0% 0%; 
+		transform: translate3d(0px, 0px, 0px); 
+		backface-visibility: hidden; 
+		transform-style: preserve-3d; 
+	}
+	.main { 
+		position: relative; 
+		margin-left: 0px; 
+		padding-left: 0px; 
+		width: 100%; 
+		height: 100%; 
+	}
+
+/*head部分*/
+	.head { 
+		padding-bottom: 20px; 
+		height: 30px; 
+		min-width: 890px; 
+	}
+	.copyright { 
+		position: relative; 
+		top: 16px; 
+		right: 14px; 
+		z-index: 2; 
+		float: right; 
+		overflow: hidden; 
+		width: 470px; 
+		height: 32px; 
+	}
+
+
+/*标题部分*/
+	.title { 
+		position: absolute; 
+		margin-left: 18px; 
+		padding-top: 105px; 
+		padding-bottom: 40px;
+	}
+	.title{
+		position:absolute;
+		margin-left:18px;
+		padding-top:110px;
+		padding-bottom:40px
+	}
+
+	.title div{
+		display: inline-block; 
+		width: 200px;
+		height: 30px;
+		line-height: 30px;
+		padding-left: 16px;
+		font:italic 20px '微软雅黑';
+		color:#a1a1a1;
+	}
+	.bline { 
+		display: inline-block; 
+		margin-left: 16px; 
+		width: 195px; 
+		border-bottom: 1px solid rgb(161, 161, 161); 
+	}
+
+/*下面主体内容部分*/
+	.spaceBox { 
+		padding-top: 120px; 
+	}
+	.content_box { 
+		position: relative; 
+		overflow: hidden; 
+		height: 100%; 
+		max-width: 100%; 
+		outline: 0px none; 
+		direction: ltr; 
+	}
+	.w890 { 
+		margin: 0px auto; 
+		width: 890px; 
+	}
+	.w655 { 
+		position: relative; 
+		margin: 0px auto; 
+		width: 670px; 
+	}
+	.w655 > img{
+		display: block;
+		margin: 90px auto 30px;
+	}
+	.chinese { 
+		display: block; 
+		margin: 0px auto; 
+		width: 82px; 
+	}
+
+	#china_txteng { 
+		position: relative; 
+		margin-top: 20px; 
+		color: rgb(161, 161, 161); 
+		text-align: center; 
+		text-transform: uppercase; 
+		font-size: 14px; 
+		margin-bottom: 50px; 
+		font-family: "Microsoft YaHei";
+		line-height: 20px; 
+	}
+	#english_text { 
+		position: absolute; 
+		top: -20px; 
+		left: 400px;
+		font-weight: 400; 
+		font-family: perpeta;
+		transition: 0.7s; 
+	}
+	#china_text { 
+		position: relative; 
+		left: 0px; 
+		font-family: "微软雅黑";
+		transition: 0.7s; 
+	}
+	#china_text, #english_text { 
+		line-height: 20px; 
+	}
+	.mapicon{
+		display: inline-block;
+		width: 24px;
+		height: 24px;
+		background-image: url(../images/map.png);
+	}
+	#china_txteng p img{
+		width: 137px;
+	}
+
+
+	.btnmove { 
+		display: block; 
+		overflow: hidden; 
+		margin: 20px auto; 
+		width: 188px; 
+		height: 31px; 
+		border: 2px solid rgb(208, 65, 109); 
+	}
+	.mess_box { 
+		position: relative; 
+		display: block; 
+		overflow: hidden; 
+		width: 231px; 
+		height: 66px; 
+		transition: 0.7s;
+		top: 0;
+		background: transparent url('../images/btn_mess.png') no-repeat scroll 0% 0%; 
+		text-indent: -500px; 
+	}
+
+	#show_wrap { 
+		position: fixed; 
+		z-index: 9999; 
+		display: none; 
+		width: 100%; 
+		height: 100%; 
+		transition: 2s;
+		background: rgba(0, 0, 0, 0.4) none repeat scroll 0% 0%;
+	}
+	#showmask{ 
+		position: fixed; 
+		top: 50%; 
+		left: 50%; 
+		margin-top: -100px;
+		margin-left: -100px;
+		z-index: 10; 
+		overflow: hidden; 
+		width: 200px; 
+		height: 200px; 
+		background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+	}
+	.maskbox{
+		width: 100%;
+		height: 100%;
+	}	
+	.maskbox img {
+		width: 100%;
+		height: 100%;
+	}
